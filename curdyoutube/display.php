@@ -33,6 +33,7 @@ include 'conn.php';
          <th>ID</th>  
          <th>USERNAME</th>  
          <th>PASSWORD</th>
+         <th>IMAGE</th>
          <th>DELETE</th>
          <th>UPDATE</th>
      </tr>
@@ -53,6 +54,7 @@ include 'conn.php';
          <td><?php echo $res['id']; ?></td>  
          <td><?php echo $res['username']; ?></td>  
          <td><?php echo $res['password']; ?></td>
+         <td><img src="<?php echo $res['picsource']; ?>"  height="50" width= "50"alt=""style="padding:0;margin:0;" ></td>
          <td><button class="btn-danger btn"><a href="delete.php?id=<?php echo $res['id'];?>" class="text-light" >Delete</a> </button> </td>  
          <td><button class="btn-info btn"> <a href="update.php?id=<?php echo $res['id']; ?>" class="text-light" >Update</a> </button> </td>  
          

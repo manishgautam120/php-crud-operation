@@ -7,11 +7,30 @@ if(isset($_POST['done']))
     $id = $_GET['id'];
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $q = " update crudtable set id=$id, username='$username', password ='$password' where id = $id ";
+    $filename = $_FILES["uploadfile"]["name"];
+    $tempname = $_FILES["uploadfile"]["tmp_name"];
+    $folder = "student/".$filename;
+    move_uploaded_file($tempname,$folder);
 
-    $query = mysqli_query($con,$q);
-   
-   header('location:display.php');
+
+    
+    if($username !="" && $password !="" && $filename !="")
+    {
+        $q = " update crudtable set id=$id, username='$username', password ='$password', picsource = '$folder' where id = $id ";
+
+        $query = mysqli_query($con , $q);
+
+         if($query)
+         {
+             echo "data has been updated successfully";
+             header('location:display.php');
+
+         }
+    }
+     else
+     {
+        echo "check your field again and make sure all fields filled";
+     }
 
 
 }
@@ -35,7 +54,7 @@ if(isset($_POST['done']))
 <body>
     
 <div class="col-lg-6 m-auto">
-<form method = "post">
+<form action="" method="post" enctype ="multipart/form-data">
 <br><div class="card">
 <div class="card-header bg-dark">
 <h1 class="text-white text-center">Update operation</h1>
@@ -45,6 +64,11 @@ if(isset($_POST['done']))
 
     <br><label ><b>Password</b></label>
     <input  class="form-control" type="password" placeholder="Enter Password" name="password" required>
+    <br>
+    <div>
+        <label ><b>image upload</b></label>
+        <input type="file" name="uploadfile" value=""/>
+    </div>
  
     <br> <button class="btn btn-success" type="submit" name="done" >Submit</button>
 
@@ -57,3 +81,5 @@ if(isset($_POST['done']))
 
 </body>
 </html>
+
+
